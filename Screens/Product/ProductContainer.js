@@ -17,9 +17,11 @@ const ProductContainer = () => {
             <Text>Product Container</Text>
             <View style={{ marginTop: 200 }} >
                 <FlatList
-                    horizontal
+                    // horizontal
+                    columnWrapperStyle={{justifyContent: 'space-between'}}
+                    numColumns={2}
                     data={products}
-                    renderItem={({ item }) => <ProductList key={item._id}/>}
+                    renderItem={({ item }) => <ProductList key={item._id} item={item}/>}
                     keyExtractor={item => item.name}
                 />
             </View>
