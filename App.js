@@ -7,11 +7,11 @@ import Main from './Navigators/Main'
 export default function App() {
   return (
     <NavigationContainer>
-      <View style={styles.container}>
+     
         <Header />
         <ProductContainer />
         <Main />
-      </View>
+      
     </NavigationContainer>
   );
 }
