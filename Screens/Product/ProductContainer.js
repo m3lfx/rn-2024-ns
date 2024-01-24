@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, FlatList, ActivityIndicator, Dimensions } from 'react-native'
-import { Container, VStack, Input, Heading, Text, Icon, NativeBaseProvider, extendTheme,  } from "native-base";
+import { Container, VStack, Input, Heading, Text, Icon, NativeBaseProvider, extendTheme, } from "native-base";
 import { Ionicons, SmallCloseIcon } from "@expo/vector-icons";
 
 import ProductList from "./ProductList";
 import SearchedProduct from "./SearchedProduct";
+import Banner from "../../Shared/Banner";
 
 const data = require('../../assets/data/products.json')
 const newColorTheme = {
@@ -62,7 +63,10 @@ const ProductContainer = () => {
     return (
         <NativeBaseProvider theme={theme}>
             <Container>
+
+
                 <VStack w="100%" space={5} alignSelf="center">
+                    <Banner />
                     <Heading fontSize="lg">SearcH</Heading>
                     <Input
                         onFocus={openList}
@@ -85,6 +89,7 @@ const ProductContainer = () => {
                 ) : (
                     <View style={styles.container}>
                         <Text>Product Container</Text>
+
                         <View style={styles.listContainer} >
                             <FlatList
                                 //    horizontal
