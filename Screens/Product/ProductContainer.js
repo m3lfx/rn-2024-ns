@@ -8,6 +8,7 @@ import SearchedProduct from "./SearchedProduct";
 import Banner from "../../Shared/Banner";
 
 const data = require('../../assets/data/products.json')
+const productCategories = require('../../assets/data/categories.json')
 const newColorTheme = {
     brand: {
         900: "#8287af",
@@ -21,14 +22,23 @@ const ProductContainer = () => {
     const [products, setProducts] = useState([])
     const [productsFiltered, setProductsFiltered] = useState([]);
     const [focus, setFocus] = useState();
+    const [categories, setCategories] = useState([]);
+    const [active, setActive] = useState([]);
+    const [initialState, setInitialState] = useState([])
     useEffect(() => {
         setProducts(data);
         setProductsFiltered(data);
         setFocus(false);
+        setCategories(productCategories)
+        setActive(-1)
+        setInitialState(data)
         return () => {
             setProducts([])
             setProductsFiltered([]);
-            setFocus();
+            setFocus()
+            setCategories([])
+            setActive()
+            setInitialState();
         }
     }, [])
     // return (
