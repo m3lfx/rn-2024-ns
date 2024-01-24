@@ -2,11 +2,8 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, ScrollView, FlatList, View } from 'react-native';
 import { Badge, Text, VStack, Divider, HStack } from 'native-base';
 
-
 const CategoryFilter = (props) => {
-
     return(
-        
             <ScrollView
                 bounces={true}
                 horizontal={true}
@@ -22,17 +19,7 @@ const CategoryFilter = (props) => {
                         </TouchableOpacity>
                     </HStack>
                 </VStack>
-                     {/* <FlatList style={{ margin: 0, padding: 0, borderRadius: 0 }} nestedScrollEnabled={true} horizontal={true}> 
-                        <TouchableOpacity key={1} >
-                            <Badge style={[styles.center, {margin: 5}]}>
-                                <Text style={{ color: 'red'}}>name</Text>
-                            </Badge>
-                        </TouchableOpacity>
-                     </FlatList>  */}
-                
-                {/* <Badge style={[styles.center, {margin: 5}]}>
-                                <Text style={{ color: 'white'}}>name</Text>
-                            </Badge> */}
+               
             </ScrollView>
             
                

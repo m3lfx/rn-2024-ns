@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, FlatList, ActivityIndicator, Dimensions } from 'react-native'
-import { Container, VStack, Input, Heading, Text, Icon, NativeBaseProvider, extendTheme, } from "native-base";
+import { View, StyleSheet, FlatList, ActivityIndicator, Dimensions, ScrollViewComponent } from 'react-native'
+import { Center, VStack, Input, Heading, Text, Icon, NativeBaseProvider, extendTheme, ScrollView, } from "native-base";
 import { Ionicons, SmallCloseIcon } from "@expo/vector-icons";
 
 import ProductList from "./ProductList";
 import SearchedProduct from "./SearchedProduct";
 import Banner from "../../Shared/Banner";
+import CategoryFilter from "./CategoryFilter";
 
 const data = require('../../assets/data/products.json')
 const productCategories = require('../../assets/data/categories.json')
@@ -72,12 +73,8 @@ const ProductContainer = () => {
 
     return (
         <NativeBaseProvider theme={theme}>
-            <Container>
-
-
+            <Center>
                 <VStack w="100%" space={5} alignSelf="center">
-                    <Banner />
-                    <Heading fontSize="lg">SearcH</Heading>
                     <Input
                         onFocus={openList}
                         onChangeText={(text) => searchProduct(text)}
@@ -97,23 +94,33 @@ const ProductContainer = () => {
                         productsFiltered={productsFiltered}
                     />
                 ) : (
-                    <View style={styles.container}>
-                        <Text>Product Container</Text>
 
-                        <View style={styles.listContainer} >
-                            <FlatList
-                                //    horizontal
-                                columnWrapperStyle={{ justifyContent: 'space-between' }}
-                                numColumns={2}
-                                data={products}
-                                // renderItem={({item}) => <Text>{item.brand}</Text>}
-                                renderItem={({ item }) => <ProductList key={item.brnad} item={item} />}
-                                keyExtractor={item => item.name}
-                            />
+
+                    <ScrollView>
+                        <View>
+                            <Banner />
                         </View>
-                    </View>
+                        <View >
+                            <CategoryFilter />
+                        </View>
+
+
+                        <FlatList
+                            //    horizontal
+                            columnWrapperStyle={{ justifyContent: 'space-between' }}
+                            numColumns={2}
+                            data={products}
+                            // renderItem={({item}) => <Text>{item.brand}</Text>}
+                            renderItem={({ item }) => <ProductList key={item.brnad} item={item} />}
+                            keyExtractor={item => item.name}
+                        />
+
+
+
+                    </ScrollView>
+
                 )}
-            </Container>
+            </Center>
         </NativeBaseProvider>
     )
 }
