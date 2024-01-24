@@ -26,6 +26,7 @@ const ProductContainer = () => {
     const [categories, setCategories] = useState([]);
     const [active, setActive] = useState([]);
     const [initialState, setInitialState] = useState([])
+    const [productsCtg, setProductsCtg] = useState([])
     useEffect(() => {
         setProducts(data);
         setProductsFiltered(data);
@@ -71,6 +72,19 @@ const ProductContainer = () => {
         setFocus(false);
     }
 
+    const changeCtg = (ctg) => {
+        {
+            ctg === "all"
+                ? [setProductsCtg(initialState), setActive(true)]
+                : [
+                    setProductsCtg(
+                        products.filter((i) => i.category.$oid === ctg),
+                        setActive(true)
+                    ),
+                ];
+        }
+    };
+
     return (
         <NativeBaseProvider theme={theme}>
             <Center>
@@ -94,17 +108,19 @@ const ProductContainer = () => {
                         productsFiltered={productsFiltered}
                     />
                 ) : (
-
-
                     <ScrollView>
                         <View>
                             <Banner />
                         </View>
                         <View >
-                            <CategoryFilter />
+                            <CategoryFilter
+                                categories={categories}
+                                categoryFilter={changeCtg}
+                                productsCtg={productsCtg}
+                                active={active}
+                                setActive={setActive}
+                            />
                         </View>
-
-
                         <FlatList
                             //    horizontal
                             columnWrapperStyle={{ justifyContent: 'space-between' }}
@@ -114,9 +130,6 @@ const ProductContainer = () => {
                             renderItem={({ item }) => <ProductList key={item.brnad} item={item} />}
                             keyExtractor={item => item.name}
                         />
-
-
-
                     </ScrollView>
 
                 )}
