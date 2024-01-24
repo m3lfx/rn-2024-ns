@@ -73,6 +73,7 @@ const ProductContainer = () => {
     }
 
     const changeCtg = (ctg) => {
+        console.log(ctg)
         {
             ctg === "all"
                 ? [setProductsCtg(initialState), setActive(true)]
@@ -84,6 +85,7 @@ const ProductContainer = () => {
                 ];
         }
     };
+    // console.log(productsCtg)
 
     return (
         <NativeBaseProvider theme={theme}>
@@ -121,6 +123,23 @@ const ProductContainer = () => {
                                 setActive={setActive}
                             />
                         </View>
+                        {productsCtg.length > 0 ? (
+                                <View style={styles.listContainer}>
+                                    {productsCtg.map((item) => {
+                                        return(
+                                            <ProductList
+                                                // navigation={props.navigation}
+                                                key={item._id.$oid}
+                                                item={item}
+                                            />
+                                        )
+                                    })}
+                                </View>
+                                ) : (
+                                    <View style={[styles.center, { height: height / 2}]}>
+                                        <Text>No products found</Text>
+                                    </View>
+                                )}
                         <FlatList
                             //    horizontal
                             columnWrapperStyle={{ justifyContent: 'space-between' }}
