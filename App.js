@@ -3,16 +3,27 @@ import { StyleSheet, Text, View } from 'react-native';
 import ProductContainer from './Screens/Product/ProductContainer';
 import Header from './Shared/Header';
 import { NavigationContainer } from '@react-navigation/native'
+import { NativeBaseProvider, extendTheme, } from "native-base";
 import Main from './Navigators/Main'
+const theme = extendTheme({ colors: newColorTheme });
+const newColorTheme = {
+  brand: {
+    900: "#8287af",
+    800: "#7c83db",
+    700: "#b3bef6",
+  },
+};
 export default function App() {
   return (
-    <NavigationContainer>
-     
+    <NativeBaseProvider theme={theme}>
+      <NavigationContainer>
+
         <Header />
-        <ProductContainer />
+        {/* <ProductContainer /> */}
         <Main />
-      
-    </NavigationContainer>
+
+      </NavigationContainer>
+    </NativeBaseProvider>
   );
 }
 

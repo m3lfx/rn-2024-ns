@@ -10,14 +10,8 @@ import CategoryFilter from "./CategoryFilter";
 
 const data = require('../../assets/data/products.json')
 const productCategories = require('../../assets/data/categories.json')
-const newColorTheme = {
-    brand: {
-        900: "#8287af",
-        800: "#7c83db",
-        700: "#b3bef6",
-    },
-};
-const theme = extendTheme({ colors: newColorTheme });
+
+
 var { width, height } = Dimensions.get("window")
 const ProductContainer = () => {
     const [products, setProducts] = useState([])
@@ -34,6 +28,7 @@ const ProductContainer = () => {
         setCategories(productCategories)
         setActive(-1)
         setInitialState(data)
+        setProductsCtg(data)
         return () => {
             setProducts([])
             setProductsFiltered([]);
@@ -85,10 +80,10 @@ const ProductContainer = () => {
                 ];
         }
     };
-    // console.log(productsCtg)
+    console.log(products)
 
     return (
-        <NativeBaseProvider theme={theme}>
+        
             <Center>
                 <VStack w="100%" space={5} alignSelf="center">
                     <Input
@@ -146,14 +141,14 @@ const ProductContainer = () => {
                             numColumns={2}
                             data={products}
                             // renderItem={({item}) => <Text>{item.brand}</Text>}
-                            renderItem={({ item }) => <ProductList key={item.brnad} item={item} />}
+                            renderItem={({ item }) => <ProductList key={item.brand} item={item} />}
                             keyExtractor={item => item.name}
                         />
                     </ScrollView>
 
                 )}
             </Center>
-        </NativeBaseProvider>
+  
     )
 }
 
