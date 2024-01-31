@@ -3,7 +3,7 @@ import thunkMiddleware from 'redux-thunk';
 
 import cartItems from './Reducers/cartItems';
 const reducers = combineReducers({
-    // cartItems: cartItems
+    cartItems: cartItems,
 })
 
 const store = createStore(
