@@ -1,5 +1,5 @@
 import { legacy_createStore as createStore, combineReducers, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
+import {thunk} from 'redux-thunk';
 
 import cartItems from './Reducers/cartItems';
 const reducers = combineReducers({
@@ -8,7 +8,7 @@ const reducers = combineReducers({
 
 const store = createStore(
     reducers,
-    applyMiddleware(thunkMiddleware),
+    applyMiddleware(thunk),
 )
 
 export default store;

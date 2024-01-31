@@ -5,6 +5,10 @@ import Header from './Shared/Header';
 import { NavigationContainer } from '@react-navigation/native'
 import { NativeBaseProvider, extendTheme, } from "native-base";
 import Main from './Navigators/Main'
+import { Provider } from "react-redux";
+import store from "./Redux/store";
+import Toast from "react-native-toast-message";
+
 const theme = extendTheme({ colors: newColorTheme });
 const newColorTheme = {
   brand: {
@@ -15,15 +19,16 @@ const newColorTheme = {
 };
 export default function App() {
   return (
-    <NativeBaseProvider theme={theme}>
-      <NavigationContainer>
+    <Provider store={store}>
+      <NativeBaseProvider theme={theme}>
+        <NavigationContainer>
+          <Header />
+          <Main />
+          <Toast />
 
-        <Header />
-        {/* <ProductContainer /> */}
-        <Main />
-
-      </NavigationContainer>
-    </NativeBaseProvider>
+        </NavigationContainer>
+      </NativeBaseProvider>
+    </Provider>
   );
 }
 
