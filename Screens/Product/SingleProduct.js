@@ -16,7 +16,7 @@ const SingleProduct = ({ route }) => {
             resizeMode="contain"
             style={styles.image}
             alt="default image"
-            size="xl"
+            size="l"
         />
         <View style={styles.contentContainer}>
             <Heading style={styles.contentHeader} size='xl'>{item.name}</Heading>
