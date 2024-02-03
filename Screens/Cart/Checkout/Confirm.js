@@ -82,9 +82,7 @@ const Confirm = (props) => {
                             <Text style={styles.title}>items</Text>
 
                             {finalOrder.order.order.orderItems.map((item) => {
-
                                 return (
-
                                     <HStack space={[2, 3]} justifyContent="space-between" key={item.id}>
                                         <Avatar size="48px" source={{
                                             uri: item.image ?
