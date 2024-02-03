@@ -77,10 +77,11 @@ const ProductContainer = () => {
                 axios
                     .get(`${baseURL}categories`)
                     .then((res) => {
+                        
                         setCategories(res.data)
                     })
                     .catch((error) => {
-                        console.log('Api call error')
+                        console.log('Api categoriesv call error')
                     })
     
                 return () => {
@@ -116,13 +117,13 @@ const ProductContainer = () => {
                 ? [setProductsCtg(initialState), setActive(true)]
                 : [
                     setProductsCtg(
-                        products.filter((i) => i.category.$oid === ctg),
+                        products.filter((i) => products.filter((i) => i.category !== null && i.category._id === ctg  )),
                         setActive(true)
                     ),
                 ];
         }
     };
-    console.log(products)
+    console.log("category", productsCtg)
 
     return (
         
@@ -166,7 +167,7 @@ const ProductContainer = () => {
                                         return(
                                             <ProductList
                                                 // navigation={props.navigation}
-                                                key={item._id.$oid}
+                                                key={item._id}
                                                 item={item}
                                             />
                                         )
@@ -177,15 +178,7 @@ const ProductContainer = () => {
                                         <Text>No products found</Text>
                                     </View>
                                 )}
-                        {/* <FlatList
-                            //    horizontal
-                            columnWrapperStyle={{ justifyContent: 'space-between' }}
-                            numColumns={2}
-                            data={products}
-                            // renderItem={({item}) => <Text>{item.brand}</Text>}
-                            renderItem={({ item }) => <ProductList key={item.brand} item={item} />}
-                            keyExtractor={item => item.name}
-                        /> */}
+                       
                     </ScrollView>
 
                 )}
