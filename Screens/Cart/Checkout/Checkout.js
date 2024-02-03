@@ -24,25 +24,25 @@ const Checkout = (props) => {
 
     const navigation = useNavigation()
     const cartItems = useSelector(state => state.cartItems)
-    const context = useContext(AuthGlobal);
+    // const context = useContext(AuthGlobal);
 
-    useEffect(() => {
-        setOrderItems(cartItems)
-        if(context.stateUser.isAuthenticated) {
-            setUser(context.stateUser.user.userId)
-        } else {
-            navigation.navigate("User",{ screen: 'Login' });
-            Toast.show({
-                topOffset: 60,
-                type: "error",
-                text1: "Please Login to Checkout",
-                text2: ""
-            });
-        }
-        return () => {
-            setOrderItems();
-        }
-    }, [])
+    // useEffect(() => {
+    //     setOrderItems(cartItems)
+    //     if(context.stateUser.isAuthenticated) {
+    //         setUser(context.stateUser.user.userId)
+    //     } else {
+    //         navigation.navigate("User",{ screen: 'Login' });
+    //         Toast.show({
+    //             topOffset: 60,
+    //             type: "error",
+    //             text1: "Please Login to Checkout",
+    //             text2: ""
+    //         });
+    //     }
+    //     return () => {
+    //         setOrderItems();
+    //     }
+    // }, [])
 
     const checkOut = () => {
         console.log("orders", orderItems)
@@ -55,13 +55,13 @@ const Checkout = (props) => {
             shippingAddress1: address,
             shippingAddress2: address2,
             status: "3",
-            user,
+            // user,
             zip,
         }
         console.log("ship", order)
         navigation.navigate("Payment", { order: order })
     }
-    console.log(orderItems)
+    // console.log(orderItems)
     return (
         <KeyboardAwareScrollView
             viewIsInsideTabBar={true}
