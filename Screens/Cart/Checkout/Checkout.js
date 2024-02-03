@@ -26,23 +26,23 @@ const Checkout = (props) => {
     const cartItems = useSelector(state => state.cartItems)
     // const context = useContext(AuthGlobal);
 
-    // useEffect(() => {
-    //     setOrderItems(cartItems)
-    //     if(context.stateUser.isAuthenticated) {
-    //         setUser(context.stateUser.user.userId)
-    //     } else {
-    //         navigation.navigate("User",{ screen: 'Login' });
-    //         Toast.show({
-    //             topOffset: 60,
-    //             type: "error",
-    //             text1: "Please Login to Checkout",
-    //             text2: ""
-    //         });
-    //     }
-    //     return () => {
-    //         setOrderItems();
-    //     }
-    // }, [])
+    useEffect(() => {
+        setOrderItems(cartItems)
+        // if(context.stateUser.isAuthenticated) {
+        //     setUser(context.stateUser.user.userId)
+        // } else {
+        //     navigation.navigate("User",{ screen: 'Login' });
+        //     Toast.show({
+        //         topOffset: 60,
+        //         type: "error",
+        //         text1: "Please Login to Checkout",
+        //         text2: ""
+        //     });
+        // }
+        return () => {
+            setOrderItems();
+        }
+    }, [])
 
     const checkOut = () => {
         console.log("orders", orderItems)
