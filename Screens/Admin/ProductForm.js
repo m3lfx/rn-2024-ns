@@ -25,8 +25,6 @@ import mime from "mime";
 
 const ProductForm = (props) => {
     // console.log(props.route.params)
-   
-
     const [pickerValue, setPickerValue] = useState('');
     const [brand, setBrand] = useState('');
     const [name, setName] = useState('');
@@ -104,12 +102,12 @@ const ProductForm = (props) => {
 
     const addProduct = () => {
         if (
-            name == "" ||
-            brand == "" ||
-            price == "" ||
-            description == "" ||
-            category == "" ||
-            countInStock == ""
+            name === "" ||
+            brand === "" ||
+            price === "" ||
+            description === "" ||
+            category === "" ||
+            countInStock === ""
         ) {
             setError("Please fill in the form correctly")
         }
@@ -144,7 +142,7 @@ const ProductForm = (props) => {
             axios
                 .put(`${baseURL}products/${item.id}`, formData, config)
                 .then((res) => {
-                    if (res.status == 200 || res.status == 201) {
+                    if (res.status === 200 || res.status === 201) {
                         Toast.show({
                             topOffset: 60,
                             type: "success",
@@ -168,7 +166,7 @@ const ProductForm = (props) => {
             axios
                 .post(`${baseURL}products`, formData, config)
                 .then((res) => {
-                    if (res.status == 200 || res.status == 201) {
+                    if (res.status === 200 || res.status === 201) {
                         Toast.show({
                             topOffset: 60,
                             type: "success",
