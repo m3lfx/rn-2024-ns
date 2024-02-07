@@ -1,47 +1,75 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text, ScrollView, } from "react-native";
-import { Left, HStack, Heading, Image, Button, Center } from 'native-base'
+import { Image, View, StyleSheet, Text, ScrollView, Button } from "react-native";
+import { Left, Right, Container, H1, Center, Heading } from 'native-base'
 import EasyButton from "../../Shared/StyledComponents/EasyButton"
+import TrafficLight from '../../Shared/StyledComponents/TrafficLight'
 const SingleProduct = ({ route }) => {
-    console.log(route.params.item)
     const [item, setItem] = useState(route.params.item);
+    // console.log(item)
     const [availability, setAvailability] = useState('')
+    const [availabilityText, setAvailabilityText] = useState("")
+    useEffect(() => {
+        if (item.countInStock == 0) {
+            setAvailability(<TrafficLight unavailable></TrafficLight>);
+            setAvailabilityText("Unvailable")
+        } else if (item.countInStock <= 5) {
+            setAvailability(<TrafficLight limited></TrafficLight>);
+            setAvailabilityText("Limited Stock")
+        } else {
+            setAvailability(<TrafficLight available></TrafficLight>);
+            setAvailabilityText("Available")
+        }
 
+        return () => {
+            setAvailability(null);
+            setAvailabilityText("");
+        }
+    }, [])
     return (
         <Center flexGrow={1}>
-            <Image
-                source={{
-                    uri: item.image ? item.image : 'https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png'
-                }}
-                resizeMode="contain"
-                style={styles.image}
-                alt="default image"
-                size="l"
-            />
-            <View style={styles.contentContainer}>
-                <Heading style={styles.contentHeader} size='xl'>{item.name}</Heading>
-                <Text style={styles.contentText}>{item.brand}</Text>
-            </View>
-            <View style={styles.bottomContainer}>
-                <HStack space={3} justifyContent="center">
-                    <Text style={styles.price}>${item.price}</Text>
-                    <EasyButton
-                        primary
-                        medium
-                    >
-                        <Text style={{ color: "white" }}> Add</Text>
-                    </EasyButton>
-                </HStack>
+            <ScrollView style={{ marginBottom: 80, padding: 5 }}>
+                <View>
+                    
+                    <Image
+                        source={{
+                            uri: item.image ? item.image : 'https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png'
+                        }}
+                        resizeMode="contain"
+                        style={styles.image}
+                    />
 
-            </View>
-        </Center>
+                </View> 
+                <View style={styles.contentContainer}>
+                    <Heading style={styles.contentHeader} size='xl'>{item.name}</Heading>
+                    <Text style={styles.contentText}>{item.brand}</Text>
+                </View>
+                <View style={styles.availabilityContainer}>
+                    <View style={styles.availability}>
+                        <Text style={{ marginRight: 10 }}>
+                            Availability: {availabilityText}
+                        </Text>
+                        {availability}
+                    </View>
+                    <Text>{item.description}</Text>
+                </View>
+                <EasyButton
+                    primary
+                    medium
+                >
+
+                    <Text style={{ color: "white" }}> Add</Text>
+                </EasyButton>
+            </ScrollView>
+
+        </Center >
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         position: 'relative',
-        height: '100%'
+        height: '100%',
+
     },
     imageContainer: {
         backgroundColor: 'white',
@@ -50,7 +78,8 @@ const styles = StyleSheet.create({
     },
     image: {
         width: '100%',
-        height: 250
+        height: undefined,
+        aspectRatio: 1
     },
     contentContainer: {
         marginTop: 20,
