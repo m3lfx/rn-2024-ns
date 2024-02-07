@@ -6,7 +6,7 @@ import {
     ActivityIndicator,
     StyleSheet,
     Dimensions,
-    
+
 } from "react-native";
 import { Input, VStack, Heading, Box } from "native-base"
 import Icon from "react-native-vector-icons/FontAwesome"
@@ -52,10 +52,22 @@ const Products = (props) => {
             setProductFilter(productList)
         }
         setProductFilter(
-            productList.filter((i) => 
+            productList.filter((i) =>
                 i.name.toLowerCase().includes(text.toLowerCase())
             )
         )
+    }
+
+    const deleteProduct = (id) => {
+        axios
+            .delete(`${baseURL}products/${id}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((res) => {
+                const products = productFilter.filter((item) => item.id !== id)
+                setProductFilter(products)
+            })
+            .catch((error) => console.log(error));
     }
     useFocusEffect(
         useCallback(
@@ -95,21 +107,21 @@ const Products = (props) => {
                 <View style={styles.spinner}>
                     <ActivityIndicator size="large" color="red" />
                 </View>
-            ) : ( <FlatList
+            ) : (<FlatList
                 ListHeaderComponent={ListHeader}
                 data={productFilter}
                 renderItem={({ item, index }) => (
                     <ListItem
                         item={item}
                         index={index}
-                    // deleteProduct={deleteProduct}
+                        deleteProduct={deleteProduct}
 
                     />
                 )}
                 keyExtractor={(item) => item.id}
             />)}
 
-                
+
         </Box>
     );
 }
