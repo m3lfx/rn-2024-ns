@@ -7,6 +7,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { removeFromCart, clearCart } from '../../Redux/Actions/cartActions'
 var { height, width } = Dimensions.get("window");
+import EasyButton from "../../Shared/StyledComponents/EasyButton"
 const Cart = () => {
     const navigation = useNavigation()
     dispatch = useDispatch()
@@ -91,11 +92,26 @@ const Cart = () => {
                 </HStack>
                 <HStack justifyContent="space-between">
                     
-                    <Button alignItems="center" onPress={() => dispatch(clearCart())} >Clear</Button>
+                    {/* <Button alignItems="center" onPress={() => dispatch(clearCart())} >Clear</Button> */}
+                    <EasyButton
+                        danger
+                        medium
+                        alignItems="center"
+                        onPress={() => dispatch(clearCart())}
+                    >
+                        <Text style={{ color: 'white' }}>Clear</Text>
+                    </EasyButton>
                 </HStack>
                 <HStack justifyContent="space-between">
                    
-                    <Button alignItems="center" colorScheme="primary" onPress={() => navigation.navigate('Checkout')}>Check Out</Button>
+                    {/* <Button alignItems="center" colorScheme="primary" onPress={() => navigation.navigate('Checkout')}>Check Out</Button> */}
+                    <EasyButton
+                        secondary
+                        medium
+                        onPress={() => navigation.navigate('Checkout')}
+                    >
+                        <Text style={{ color: 'white' }}>Checkout</Text>
+                    </EasyButton>
                 </HStack>
             </VStack >
         </>

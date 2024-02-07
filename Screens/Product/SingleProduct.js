@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text, ScrollView,  } from "react-native";
+import { View, StyleSheet, Text, ScrollView, } from "react-native";
 import { Left, HStack, Heading, Image, Button, Center } from 'native-base'
-
+import EasyButton from "../../Shared/StyledComponents/EasyButton"
 const SingleProduct = ({ route }) => {
     console.log(route.params.item)
     const [item, setItem] = useState(route.params.item);
@@ -9,27 +9,32 @@ const SingleProduct = ({ route }) => {
 
     return (
         <Center flexGrow={1}>
-        <Image
-            source={{
-                uri: item.image ? item.image : 'https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png'
-            }}
-            resizeMode="contain"
-            style={styles.image}
-            alt="default image"
-            size="l"
-        />
-        <View style={styles.contentContainer}>
-            <Heading style={styles.contentHeader} size='xl'>{item.name}</Heading>
-            <Text style={styles.contentText}>{item.brand}</Text>
-        </View>
-        <View style={styles.bottomContainer}>
-            <HStack space={3} justifyContent="center">
-                <Text style={styles.price}>${item.price}</Text>
-                <Button size="sm" ><Text>Add</Text></Button>
-            </HStack>
-            
-        </View>
-    </Center>
+            <Image
+                source={{
+                    uri: item.image ? item.image : 'https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png'
+                }}
+                resizeMode="contain"
+                style={styles.image}
+                alt="default image"
+                size="l"
+            />
+            <View style={styles.contentContainer}>
+                <Heading style={styles.contentHeader} size='xl'>{item.name}</Heading>
+                <Text style={styles.contentText}>{item.brand}</Text>
+            </View>
+            <View style={styles.bottomContainer}>
+                <HStack space={3} justifyContent="center">
+                    <Text style={styles.price}>${item.price}</Text>
+                    <EasyButton
+                        primary
+                        medium
+                    >
+                        <Text style={{ color: "white" }}> Add</Text>
+                    </EasyButton>
+                </HStack>
+
+            </View>
+        </Center>
     )
 }
 

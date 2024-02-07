@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome"
 import { useNavigation } from "@react-navigation/native"
-// import EasyButton from "../../Shared/StyledComponents/EasyButton";
+import EasyButton from "../../Shared/StyledComponents/EasyButton";
 
 
 var { width } = Dimensions.get("window");
@@ -47,15 +47,15 @@ const ListItem = ({ item, index }) => {
                             <Icon name="close" size={20} />
                         </TouchableOpacity>
 
-                        <Button
+                        {/* <Button
                             onPress={() => [navigation.navigate("ProductForm", { item }),
                             setModalVisible(false)
                             ]}
                             title="Edit"
                         >
                             <Text style={styles.textStyle}>Edit</Text>
-                        </Button>
-                        {/* <EasyButton
+                        </Button> */}
+                        <EasyButton
                             medium
                             secondary
                             onPress={() => [navigation.navigate("ProductForm", { item }),
@@ -68,11 +68,13 @@ const ListItem = ({ item, index }) => {
                         <EasyButton
                             medium
                             danger
-                            onPress={() => [deleteProduct(item._id), setModalVisible(false)]}
+                            onPress={() => [
+                                // deleteProduct(item._id),
+                                 setModalVisible(false)]}
                             title="delete"
                         >
                             <Text style={styles.textStyle}>Delete</Text>
-                        </EasyButton> */}
+                        </EasyButton>
 
                     </View>
                 </View>
