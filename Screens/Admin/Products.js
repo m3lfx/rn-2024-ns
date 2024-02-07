@@ -18,13 +18,15 @@ import axios from "axios"
 import baseURL from "../../assets/common/baseurl"
 import AsyncStorage from '@react-native-async-storage/async-storage'
 var { height, width } = Dimensions.get("window")
-
+import EasyButton from "../../Shared/StyledComponents/EasyButton";
+import { useNavigation } from "@react-navigation/native"
 const Products = (props) => {
 
     const [productList, setProductList] = useState([]);
     const [productFilter, setProductFilter] = useState([]);
     const [loading, setLoading] = useState(true);
     const [token, setToken] = useState();
+    const navigation = useNavigation()
     const ListHeader = () => {
         return (
             <View
@@ -98,6 +100,32 @@ const Products = (props) => {
     )
     return (
         <Box flex={1}>
+            <View style={styles.buttonContainer}>
+                <EasyButton
+                    secondary
+                    medium
+                    onPress={() => navigation.navigate("Orders")}
+                >
+                    <Icon name="shopping-bag" size={18} color="white" />
+                    <Text style={styles.buttonText}>Orders</Text>
+                </EasyButton>
+                <EasyButton
+                    secondary
+                    medium
+                    onPress={() => navigation.navigate("ProductForm")}
+                >
+                    <Icon name="plus" size={18} color="white" />
+                    <Text style={styles.buttonText}>Products</Text>
+                </EasyButton>
+                <EasyButton
+                    secondary
+                    medium
+                    onPress={() => navigation.navigate("Categories")}
+                >
+                    <Icon name="plus" size={18} color="white" />
+                    <Text style={styles.buttonText}>Categories</Text>
+                </EasyButton>
+            </View>
             <Searchbar width="80%"
                 placeholder="Search"
                 onChangeText={(text) => searchProduct(text)}
