@@ -8,6 +8,7 @@ import Main from './Navigators/Main'
 import { Provider } from "react-redux";
 import store from "./Redux/store";
 import Toast from "react-native-toast-message";
+import Auth from './Context/Store/Auth';
 
 const theme = extendTheme({ colors: newColorTheme });
 const newColorTheme = {
@@ -19,16 +20,18 @@ const newColorTheme = {
 };
 export default function App() {
   return (
-    <Provider store={store}>
-      <NativeBaseProvider theme={theme}>
-        <NavigationContainer>
-          <Header />
-          <Main />
-          <Toast />
+    <Auth>
+      <Provider store={store}>
+        <NativeBaseProvider theme={theme}>
+          <NavigationContainer>
+            <Header />
+            <Main />
+            <Toast />
 
-        </NavigationContainer>
-      </NativeBaseProvider>
-    </Provider>
+          </NavigationContainer>
+        </NativeBaseProvider>
+      </Provider>
+    </Auth>
   );
 }
 
