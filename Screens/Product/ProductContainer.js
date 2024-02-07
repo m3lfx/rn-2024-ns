@@ -117,7 +117,7 @@ const ProductContainer = () => {
                 ? [setProductsCtg(initialState), setActive(true)]
                 : [
                     setProductsCtg(
-                        products.filter((i) => products.filter((i) => i.category !== null && i.category._id === ctg  )),
+                        products.filter((i) => (i.category !== null && i.category.id) === ctg ),
                         setActive(true)
                     ),
                 ];

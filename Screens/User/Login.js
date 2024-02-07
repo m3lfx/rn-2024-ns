@@ -4,12 +4,13 @@ import {View, Text, StyleSheet } from 'react-native'
 import FormContainer from "../../Shared/Form/FormContainer";
 import { Button } from "native-base";
 import { useNavigation } from '@react-navigation/native';
-
+import Error  from '../../Shared/Error'
 const Login = (props) => {
     const navigation = useNavigation()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
 
     return (
        <FormContainer>
@@ -29,6 +30,7 @@ const Login = (props) => {
                 onChangeText={(text)=> setPassword(text)}
             />
             <View style={styles.buttonGroup}>
+            {error ? <Error message={error} /> : null}
                 <Button variant={"ghost"}>Login</Button>
             </View>
             <View style={[{marginTop:40} ,styles.buttonGroup]}>
