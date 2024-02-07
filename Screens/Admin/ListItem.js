@@ -17,10 +17,10 @@ import { useNavigation } from "@react-navigation/native"
 
 var { width } = Dimensions.get("window");
 
-const ListItem = ({item, index}) => {
+const ListItem = ({ item, index }) => {
     const [modalVisible, setModalVisible] = useState(false)
     const navigation = useNavigation()
-    return(
+    return (
         <View>
             <Modal
                 animationType="fade"
@@ -37,7 +37,7 @@ const ListItem = ({item, index}) => {
                             onPress={() => {
                                 setModalVisible(false)
                             }}
-                            style={{ 
+                            style={{
                                 alignSelf: "flex-end",
                                 position: "absolute",
                                 top: 5,
@@ -46,11 +46,11 @@ const ListItem = ({item, index}) => {
                         >
                             <Icon name="close" size={20} />
                         </TouchableOpacity>
-                        
-                        <Button 
-                            onPress={() => [ navigation.navigate("ProductForm", { item }),
+
+                        <Button
+                            onPress={() => [navigation.navigate("ProductForm", { item }),
                             setModalVisible(false)
-                        ]}
+                            ]}
                             title="Edit"
                         >
                             <Text style={styles.textStyle}>Edit</Text>
@@ -73,20 +73,20 @@ const ListItem = ({item, index}) => {
                         >
                             <Text style={styles.textStyle}>Delete</Text>
                         </EasyButton> */}
-                        
+
                     </View>
                 </View>
             </Modal>
             <TouchableOpacity
-            onPress={() => {
-                navigation.navigate("Product Detail", { item })
-            }}
-            onLongPress={() => setModalVisible(true)}
+                onPress={() => {
+                    navigation.navigate("Product Detail", { item })
+                }}
+                onLongPress={() => setModalVisible(true)}
                 style={[styles.container, {
                     backgroundColor: index % 2 == 0 ? "white" : "gainsboro"
                 }]}
             >
-               <Image
+                <Image
                     source={{
                         uri: item.image
                             ? item.image
