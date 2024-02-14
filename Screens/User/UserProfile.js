@@ -81,7 +81,7 @@ const UserProfile = (props) => {
                         <View>
                             {orders ? (
                                 orders.map((order) => {
-                                    return <OrderCard key={order.id} item={order} />;
+                                    return <OrderCard key={order.id} item={order} select="false" />;
                                 })
                             ) : (
                                 <View style={styles.order}>

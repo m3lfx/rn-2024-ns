@@ -16,7 +16,7 @@ const codes = [
   { name: "shipped", code: "2" },
   { name: "delivered", code: "1" },
 ];
-const OrderCard = ({ item }) => {
+const OrderCard = ({ item, select }) => {
   const [orderStatus, setOrderStatus] = useState('');
   const [statusText, setStatusText] = useState('');
   const [statusChange, setStatusChange] = useState('');
@@ -121,8 +121,7 @@ const OrderCard = ({ item }) => {
         </View>
         {/* {item.editMode ? ( */}
         <View>
-
-          <Select
+{select ? null :  <><Select
             width="80%"
             iosIcon={<Icon name="arrow-down" color={"#007aff"} />}
             style={{ width: undefined }}
@@ -141,15 +140,16 @@ const OrderCard = ({ item }) => {
                 value={c.code}
               />
             })}
-          </Select>
-
-          <EasyButton
+          </Select><EasyButton
             secondary
             large
             onPress={() => updateOrder()}
           >
             <Text style={{ color: "white" }}>Update</Text>
-          </EasyButton>
+          </EasyButton></> }
+         
+
+          
         </View>
         {/* //   ) : null} */}
       </View>
