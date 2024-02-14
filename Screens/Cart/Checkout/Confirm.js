@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import { View, StyleSheet, Dimensions, ScrollView, Button } from "react-native";
 import { Text, HStack, VStack, Avatar, Spacer, Center } from "native-base";
 
-import * as actions from "../../../Redux/Actions/cartActions";
+import { clearCart } from "../../../Redux/Actions/cartActions";
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Toast from "react-native-toast-message";
-// import axios from "axios";
-// import baseURL from "../../../assets/common/baseurl";
+import axios from "axios";
+import baseURL from "../../../assets/common/baseurl";
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux'
-// import AsyncStorage from "@react-native-async-storage/async-storage"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 
 var { width, height } = Dimensions.get("window");
@@ -22,48 +22,47 @@ const Confirm = (props) => {
     const dispatch = useDispatch()
     let navigation = useNavigation()
 
-    //   const confirmOrder = () => {
-    //     const order = finalOrder.order.order;
+    const confirmOrder = () => {
+        const order = finalOrder.order.order;
 
-    //     AsyncStorage.getItem("jwt")
-    //       .then((res) => {
-    //         setToken(res)
+        AsyncStorage.getItem("jwt")
+            .then((res) => {
+                setToken(res)
+            })
+            .catch((error) => console.log(error))
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+        axios
+            .post(`${baseURL}orders`, order, config)
+            .then((res) => {
+                if (res.status == 200 || res.status == 201) {
+                    Toast.show({
+                        topOffset: 60,
+                        type: "success",
+                        text1: "Order Completed",
+                        text2: "",
+                    });
+                    // dispatch(actions.clearCart())
+                    // props.navigation.navigate("Cart")
 
-    //       })
-    //       .catch((error) => console.log(error))
-    //     const config = {
-    //       headers: {
-    //         Authorization: `Bearer ${token}`
-    //       }
-    //     }
-    //     axios
-    //       .post(`${baseURL}orders`, order, config)
-    //       .then((res) => {
-    //         if (res.status == 200 || res.status == 201) {
-    //           Toast.show({
-    //             topOffset: 60,
-    //             type: "success",
-    //             text1: "Order Completed",
-    //             text2: "",
-    //           });
-    //           // dispatch(actions.clearCart())
-    //           // props.navigation.navigate("Cart")
-
-    //           setTimeout(() => {
-    //             dispatch(actions.clearCart())
-    //             navigation.navigate("Cart");
-    //           }, 500);
-    //         }
-    //       })
-    //       .catch((error) => {
-    //         Toast.show({
-    //           topOffset: 60,
-    //           type: "error",
-    //           text1: "Something went wrong",
-    //           text2: "Please try again",
-    //         });
-    //       });
-    //   }
+                    setTimeout(() => {
+                        dispatch(clearCart())
+                        navigation.navigate("Cart");
+                    }, 500);
+                }
+            })
+            .catch((error) => {
+                Toast.show({
+                    topOffset: 60,
+                    type: "error",
+                    text1: "Something went wrong",
+                    text2: "Please try again",
+                });
+            });
+    }
     return (
         <Center>
             <ScrollView contentContainerStyle={styles.container}>
@@ -111,7 +110,7 @@ const Confirm = (props) => {
                     <View style={{ alignItems: "center", margin: 20 }}>
                         <Button
                             title={"Place order"}
-                        // onPress={confirmOrder} 
+                            onPress={confirmOrder}
                         />
                     </View>
                 </View>

@@ -36,12 +36,12 @@ const paymentCards = [
     { name: 'Other', value: 4 }
 ]
 
-const Payment = ({route}) => {
+const Payment = ({ route }) => {
 
     const order = route.params;
     const [selected, setSelected] = useState('');
     const [card, setCard] = useState('');
-console.log(order)
+    console.log(order)
     const navigation = useNavigation()
     return (
         <Center  >

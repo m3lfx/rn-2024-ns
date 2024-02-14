@@ -18,7 +18,7 @@ const Login = (props) => {
   const [error, setError] = useState('')
   useEffect(() => {
     if (context.stateUser.isAuthenticated === true) {
-      navigation.navigate("User Profile")
+      navigation.navigate("User",{screen: "User Profile"})
     }
   }, [context.stateUser.isAuthenticated])
   const handleSubmit = () => {
