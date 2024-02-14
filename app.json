@@ -3,7 +3,7 @@
     "name": "rn2024-ns",
     "slug": "rn2024-ns",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
