@@ -12,6 +12,7 @@ import Toast from "react-native-toast-message";
 import { Camera } from 'expo-camera';
 import Icon from "react-native-vector-icons/FontAwesome"
 import mime from "mime";
+import * as ImagePicker from "expo-image-picker"
 var { height, width } = Dimensions.get("window")
 
 const Register = (props) => {
@@ -28,15 +29,37 @@ const Register = (props) => {
     const [mainImage, setMainImage] = useState('');
     const navigation = useNavigation()
 
-    const addPhoto = async () => {
+    // const addPhoto = async () => {
+    //     setLaunchCam(true)
+    //     if (camera) {
+    //         const data = await camera.takePictureAsync(null)
+    //         setImage(data.uri);
+    //         setMainImage(data.uri)
+    //         setLaunchCam(false)
+    //     }
+    // }
+
+    const takePhoto = async () => {
         setLaunchCam(true)
-        if (camera) {
-            const data = await camera.takePictureAsync(null)
-            setImage(data.uri);
-            setMainImage(data.uri)
-            setLaunchCam(false)
+       
+        const c = await ImagePicker.requestCameraPermissionsAsync();
+
+        if (c.status === "granted") {
+             let result = await ImagePicker.launchCameraAsync({
+                aspect: [4, 3],
+                quality: 1,
+            });
+            console.log(result)
+           
+            // setImage(data.uri);
+            // setMainImage(data.uri)
+            if (!result.canceled) {
+                console.log(result.assets)
+                setMainImage(result.assets[0].uri);
+                setImage(result.assets[0].uri);
+            }
         }
-    }
+  };
 
     const register = () => {
         if (email === "" || name === "" || phone === "" || password === "") {
@@ -146,7 +169,7 @@ const Register = (props) => {
                         </View>
                         <Button
                             variant={"ghost"}
-                            onPress={() => addPhoto()}><Text> add photo</Text>
+                            onPress={() => takePhoto()}><Text> add photo</Text>
                         </Button>
                         <Button
                             variant={"ghost"}
@@ -164,7 +187,7 @@ const Register = (props) => {
                 <View style={styles.imageContainer}>
                     <Image style={styles.image} source={{ uri: mainImage }} />
                     <TouchableOpacity
-                        onPress={addPhoto}
+                        onPress={takePhoto}
                         style={styles.imagePicker}>
                         <Icon style={{ color: "white" }} name="camera" />
                     </TouchableOpacity>
