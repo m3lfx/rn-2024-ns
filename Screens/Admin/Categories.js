@@ -86,7 +86,7 @@ const Categories = (props) => {
                 const newCategories = categories.filter((item) => item.id !== id);
                 setCategories(newCategories);
             })
-            .catch((error) => alert("Error to load categories"));
+            .catch((error) => alert("Error delete categories"));
     }
 
     return (
