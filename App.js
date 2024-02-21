@@ -10,6 +10,8 @@ import { Provider } from "react-redux";
 import store from "./Redux/store";
 import Toast from "react-native-toast-message";
 import Auth from './Context/Store/Auth';
+import DrawerNavigation from './Navigators/DrawerNavigator';
+import DrawerNavigator from './Navigators/DrawerNavigator';
 
 const theme = extendTheme({ colors: newColorTheme });
 const newColorTheme = {
@@ -26,7 +28,8 @@ export default function App() {
         <NativeBaseProvider theme={theme}>
           <NavigationContainer>
             <Header />
-            <Main />
+            <DrawerNavigator />
+            {/* <Main /> */}
             <Toast />
 
           </NavigationContainer>
