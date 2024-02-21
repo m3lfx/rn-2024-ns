@@ -6,6 +6,7 @@ import {
     ActivityIndicator,
     StyleSheet,
     Dimensions,
+    RefreshControl,
 
 } from "react-native";
 import { Input, VStack, Heading, Box } from "native-base"
@@ -27,6 +28,7 @@ const Products = (props) => {
     const [loading, setLoading] = useState(true);
     const [token, setToken] = useState();
     const navigation = useNavigation()
+    const [refreshing, setRefreshing] = useState(false);
     const ListHeader = () => {
         return (
             <View
@@ -71,6 +73,21 @@ const Products = (props) => {
             })
             .catch((error) => console.log(error));
     }
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        setTimeout(() => {
+            axios
+                .get(`${baseURL}products`)
+                .then((res) => {
+                    // console.log(res.data)
+                    setProductList(res.data);
+                    setProductFilter(res.data);
+                    setLoading(false);
+                })
+            setRefreshing(false);
+        }, 2000);
+    }, []);
     useFocusEffect(
         useCallback(
             () => {
@@ -136,6 +153,9 @@ const Products = (props) => {
                     <ActivityIndicator size="large" color="red" />
                 </View>
             ) : (<FlatList
+                refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                }
                 ListHeaderComponent={ListHeader}
                 data={productFilter}
                 renderItem={({ item, index }) => (
