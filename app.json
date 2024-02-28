@@ -4,7 +4,7 @@
     "slug": "rn2024-ns",
     "version": "1.0.0",
     "orientation": "default",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -23,14 +23,23 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.melfx.rn2024ns"
+      
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "e371957e-66d6-4205-8233-55d0ef46b4f5"
+        "projectId": "e4995172-0c1b-4697-946c-e2d2f4012f99"
       }
-    }
+    },
+    "owner": "melfx",
+    "plugins": [
+      ["expo-build-properties", {
+        "android": {
+          "usesCleartextTraffic": true
+        }
+      }]
+    ]
   }
 }

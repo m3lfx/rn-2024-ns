@@ -20,7 +20,7 @@ import {
   Icon,
 } from "native-base";
 import ProductContainer from "../Screens/Product/ProductContainer";
-import 'react-native-gesture-handler';
+
 import Login from "../Screens/User/Login";
 import Main from "./Main";
 import Cart from "../Screens/Cart/Cart";
