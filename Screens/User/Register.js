@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions  } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions, Linking } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from '@react-navigation/native';
 import { Button, Center } from "native-base";
@@ -13,6 +13,7 @@ import { Camera } from 'expo-camera';
 import Icon from "react-native-vector-icons/FontAwesome"
 import mime from "mime";
 import * as ImagePicker from "expo-image-picker"
+import * as Location from 'expo-location';
 var { height, width } = Dimensions.get("window")
 
 const Register = (props) => {
@@ -27,6 +28,8 @@ const Register = (props) => {
     const [camera, setCamera] = useState(null);
     const [image, setImage] = useState(null);
     const [mainImage, setMainImage] = useState('');
+    const [location, setLocation] = useState(false);
+    const [errorMsg, setErrorMsg] = useState(null);
     const navigation = useNavigation()
 
     // const addPhoto = async () => {
@@ -41,16 +44,16 @@ const Register = (props) => {
 
     const takePhoto = async () => {
         setLaunchCam(true)
-       
+
         const c = await ImagePicker.requestCameraPermissionsAsync();
 
         if (c.status === "granted") {
-             let result = await ImagePicker.launchCameraAsync({
+            let result = await ImagePicker.launchCameraAsync({
                 aspect: [4, 3],
                 quality: 1,
             });
             console.log(result)
-           
+
             // setImage(data.uri);
             // setMainImage(data.uri)
             if (!result.canceled) {
@@ -59,7 +62,7 @@ const Register = (props) => {
                 setImage(result.assets[0].uri);
             }
         }
-  };
+    };
 
     const register = () => {
         if (email === "" || name === "" || phone === "" || password === "") {
@@ -143,13 +146,31 @@ const Register = (props) => {
             })
     }
 
+    const getLocation = () => {
+        // ?z=15&q='restaurants
+        const {coords} = location
+        const url = `geo:${coords.latitude},${coords.longtitude}?z=21&q='restaurants'`;
+        Linking.openURL(url);
+    }
+
     useEffect(() => {
         (async () => {
             const cameraStatus = await Camera.requestCameraPermissionsAsync();
             setHasCameraPermission(cameraStatus.status === 'granted');
         })();
-    }, []);
+        (async () => {
 
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                setErrorMsg('Permission to access location was denied');
+                return;
+            }
+
+            let location = await Location.getCurrentPositionAsync({});
+            setLocation(location);
+        })();
+    }, []);
+    console.log(location)
     return (
         <KeyboardAwareScrollView
             viewIsInsideTabBar={true}
@@ -157,7 +178,7 @@ const Register = (props) => {
             enableOnAndroid={true}
         >
             <FormContainer title={"Register"}>
-            {launchCam ?
+                {launchCam ?
                     <Center width={width} >
                         <View style={styles.cameraContainer}>
                             <Camera
@@ -231,6 +252,11 @@ const Register = (props) => {
                         onPress={() => navigation.navigate("Login")}
                     >
                         <Text style={{ color: "blue" }}>Back to Login</Text>
+                    </Button>
+                    <Button variant={"ghost"}
+                        onPress={getLocation}
+                    >
+                        <Text style={{ color: "blue" }}>location</Text>
                     </Button>
                 </View>
             </FormContainer>

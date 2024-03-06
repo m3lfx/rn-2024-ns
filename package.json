@@ -45,7 +45,8 @@
     "redux-thunk": "^3.1.0",
     "styled-components": "^6.1.8",
     "react-native-screens": "~3.22.0",
-    "expo-build-properties": "~0.8.3"
+    "expo-build-properties": "~0.8.3",
+    "expo-location": "~16.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
